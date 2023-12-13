@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Lukas Jönsson
+14/9-2023
+-->
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Solution_Assignment_3.MainForm"
+             BackgroundColor="#121212">
+    <!-- Set background color to dark grey in order to see the radio buttons -->
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <!-- BMI Calculator -->
+
+            <!-- 'ContentView' equals the Windows Forms 'GroupBox' -->
+            <ContentView>
+                <!-- Stack elements vertically
+                https://learn.microsoft.com/en-us/dotnet/maui/user-interface/layouts/stacklayout
+                -->
+                    <StackLayout> <!-- 'HorizontalOptions' implemented in order to center the label -->
+                        <Label Text="BMI Calculator" FontSize="20" HorizontalOptions="Center" />
+
+                        <Grid Margin="10">
+
+                            <Grid.ColumnDefinitions>
+                                <!-- 'Auto' the width of the element equals the width of the element content -->
+			                    <ColumnDefinition Width="Auto" />
+                                <!-- '*' the width of the element equals the remaining width -->
+			                    <ColumnDefinition Width="*" />
+		                    </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+			                    <RowDefinition Height="Auto" />
+			                    <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+			                    <RowDefinition Height="Auto" />
+		                    </Grid.RowDefinitions>
+
+                            <!-- The element 'Entry' equals the Windows Forms 'Textbox'
+                            https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/entry
+                            -->
+                            <Label Grid.Row="0" x:Name="nameLabel"/>
+                            <!-- 'x:Name=""' creates a reference to the element later used in C#
+                            to dynamically modify the specific element
+                            -->
+		                    <Entry Grid.Row="0" Grid.Column="1" Margin="10,0,0,10" x:Name="nameEntry"/>
+
+		                    <Label Grid.Row="1" x:Name="majorHeightLabel"/>
+		                    <Entry Grid.Row="1" Grid.Column="1" Margin="10,0,0,10" x:Name="majorHeightEntry"/>
+
+                            <Label Grid.Row="2" x:Name="minorHeightLabel"/>
+		                    <Entry Grid.Row="2" Grid.Column="1" Margin="10,0,0,10" x:Name="minorHeightEntry"/>
+
+		                    <Label Grid.Row="3" x:Name="weightLabel"/>
+		                    <Entry Grid.Row="3" Grid.Column="1" Margin="10,0,0,10"  x:Name="weightEntry"/>
+	                    </Grid>
+
+                        <ContentView>
+                            <StackLayout HorizontalOptions="Center">
+                                <Label Text="Unit" FontSize="20" Margin="10" />
+                                <!-- RadioButton https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/radiobutton -->
+                                <RadioButton Content="Metric (cm, kg)" x:Name="metricButton" CheckedChanged="SetMetricChecked" />
+                                <RadioButton Content="Imperial (ft, lb)" x:Name="imperialButton" CheckedChanged="SetImperialChecked"/>
+                            </StackLayout>
+                        </ContentView>
+
+                        <!-- Button when 'Clicked' execute the OnClickCalculateBodyMassIndexButton method
+                        https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/button
+                        -->
+                        <Button x:Name="bmiButton" Text="Calculate BMI" HorizontalOptions="Center" Clicked="OnClickCalculateBodyMassIndexButton" />
+                </StackLayout>
+            </ContentView>
+
+            <ContentView>
+                <StackLayout>
+                    <Label Text="Results" FontSize="20" HorizontalOptions="Center" x:Name="resultsLabel" />
+
+                        <Grid Margin="10" HorizontalOptions="Center">
+
+                            <Grid.ColumnDefinitions>
+			                    <ColumnDefinition Width="Auto" />
+			                    <ColumnDefinition Width="Auto" />
+		                    </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+			                    <RowDefinition Height="Auto" />
+			                    <RowDefinition Height="Auto" />
+		                    </Grid.RowDefinitions>
+
+                            <!-- Implemented 'Frame' in order to display the results in an element similar to the instructions 
+                            https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/frame
+                            -->
+                            <Label Grid.Row="0" x:Name="bmiLabel"/>
+                            <Frame Grid.Row="0" Grid.Column="1" Margin="10,0,0,10">
+                                <Label x:Name="bmiFrameLabel" />
+                            </Frame>
+
+		                    <Label Grid.Row="1" x:Name="weightCategoryLabel"/>
+                            <Frame Grid.Row="1" Grid.Column="1" Margin="10,0,0,10">
+                                <Label x:Name="weightCategoryFrameLabel" />
+                            </Frame>
+	                    </Grid>
+
+                    <Label FontSize="16" HorizontalOptions="Center" x:Name="bmiInformationString" />
+                    <Label FontSize="16" HorizontalOptions="Center" x:Name="bmiResultString" />
+                </StackLayout>
+            </ContentView>
+
+            <!-- Saving plan -->
+
+            <ContentView>
+                <StackLayout>
+                    <Label Text="Saving Calculator" FontSize="20" HorizontalOptions="Center" />
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+			                    <ColumnDefinition Width="Auto" />
+			                    <ColumnDefinition Width="*" />
+		                    </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+			                    <RowDefinition Height="Auto" />
+			                    <RowDefinition Height="Auto" />
+		                    </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" x:Name="monthlyDepositLabel"/>
+		                    <Entry Grid.Row="0" Grid.Column="1" Margin="10,0,0,10" x:Name="monthlyDepositEntry"/>
+
+		                    <Label Grid.Row="1" x:Name="periodLabel"/>
+		                    <Entry Grid.Row="1" Grid.Column="1" Margin="10,0,0,10" x:Name="periodEntry"/>
+
+	                </Grid>
+                    <Button x:Name="spButton" Text="Calculate Saving" HorizontalOptions="Center" Clicked="OnClickCalculateFutureValue"/>
+                </StackLayout>
+            </ContentView>
+
+            <ContentView>
+                <StackLayout>
+                    <Label FontSize="20" HorizontalOptions="Center" x:Name="futureValueLabel" />
+
+                    <Grid Margin="10" HorizontalOptions="Center">
+
+                        <Grid.ColumnDefinitions>
+			                <ColumnDefinition Width="Auto" />
+			                <ColumnDefinition Width="Auto" />
+		                </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+			                <RowDefinition Height="Auto" />
+			                <RowDefinition Height="Auto" />
+		                </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" x:Name="amountPaidLabel"/>
+                        <Frame Grid.Row="0" Grid.Column="1" Margin="10,0,0,10">
+                          <Label x:Name="amountPaidFrameLabel" />
+                        </Frame>
+
+		                <Label Grid.Row="1" x:Name="finalBalanceLabel"/>
+                        <Frame Grid.Row="1" Grid.Column="1" Margin="10,0,0,10">
+                          <Label x:Name="finalBalanceFrameLabel" />
+                        </Frame>
+	                </Grid>
+                </StackLayout>
+            </ContentView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

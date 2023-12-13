@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Lukas Jönsson
+16/10-2023
+-->
+
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Solution_Assignment_6.MainForm"
+             BackgroundColor="#121212">
+
+    <!-- Create menu bar
+    https://learn.microsoft.com/en-us/dotnet/maui/user-interface/menu-bar
+    -->
+    <ContentPage.MenuBarItems>
+        <MenuBarItem x:Name="menuBarItemFile">
+            <MenuFlyoutItem x:Name="menuBarItemNew" Clicked="HandleNewFile"/>
+            <MenuFlyoutItem x:Name="menuBarItemOpen" Clicked="HandleOpenFile"/>
+            <MenuFlyoutItem x:Name="menuBarItemSave" Clicked="HandleSaveFile" />
+            <MenuFlyoutItem x:Name="menuBarItemExit" Clicked="HandleExitApp"/>
+        </MenuBarItem>
+        <MenuBarItem x:Name="menuBarItemHelp">
+            <MenuFlyoutItem x:Name="menuBarItemAbout"/>
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>
+
+    <!-- Style controls
+    https://learn.microsoft.com/en-us/dotnet/maui/user-interface/styles/xaml
+    -->
+    <ContentPage.Resources>
+             <Style x:Key="VerticalStackLayout" TargetType="VerticalStackLayout">
+                <Setter Property="Spacing" Value="25"/>
+                <Setter Property="Padding" Value="30,0"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            <Style x:Key="label" TargetType="Label">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="Margin" Value="0,10,0,10"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+
+            <Style x:Key="dateAndTimePicker" TargetType="HorizontalStackLayout">
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+
+            <Style x:Key="todoTimePicker" TargetType="HorizontalStackLayout">
+                <Setter Property="Margin" Value="10,0,0,0"/>
+            </Style>
+
+            <Style x:Key="priorityPicker" TargetType="Picker">
+                <Setter Property="Margin" Value="0,0,0,10"/>
+                <!--
+                Center the picker options
+                https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/picker
+                -->
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="todoBtn" TargetType="Button">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="0,20,0,0"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+
+            <Style x:Key="todosTodayLabel" TargetType="Frame">
+                <Setter Property="MinimumWidthRequest" Value="100"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+    </ContentPage.Resources>
+
+    <!-- ToDo Reminder -->
+    <ScrollView>
+        <VerticalStackLayout Style="{StaticResource VerticalStackLayout}">
+            <ContentView>
+                <StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+			                <ColumnDefinition Width="*"/>
+		                </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+			                <RowDefinition Height="Auto"/>
+			                <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+		                </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="1" x:Name="todoDateTimeLabel" Style="{StaticResource label}"/>
+                        <HorizontalStackLayout Grid.Row="1" Grid.Column="1" Style="{StaticResource dateAndTimePicker}">
+                            <DatePicker x:Name="todoDatePicker"/>
+                            <TimePicker x:Name="todoTimePicker" Style="{StaticResource todoTimePicker}"/>
+                        </HorizontalStackLayout>
+
+		                <Label Grid.Row="2" Grid.Column="1" x:Name="todoPriorityLabel" Style="{StaticResource label}"/>
+                        <Picker Grid.Row="3" Grid.Column="1" x:Name="todoPriorityPicker" Style="{StaticResource priorityPicker}">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+
+                        <Label Grid.Row="4" Grid.Column="1" x:Name="todoTextLabel" Style="{StaticResource label}"/>
+                        <!--
+                        The 'Completed' event with the event handler 'HandleAdd' is invoked when the user press enter
+                        https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/entry
+                        -->
+		                <Entry Grid.Row="5" Grid.Column="1" x:Name="todoTextEntry" Completed="HandleAdd"/>
+	                </Grid>
+                    <Button x:Name="todoAddBtn" Style="{StaticResource todoBtn}" Clicked="HandleAdd"/>
+                </StackLayout>
+            </ContentView>
+
+            <ContentView>
+                <StackLayout>
+                <Label x:Name="todoListViewLabel" Style="{StaticResource label}"/>
+                    <ListView x:Name="toDoListView">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextCell Text="{Binding}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ContentView>
+
+            <ContentView>
+                <StackLayout>
+                        <Frame Style="{StaticResource todosTodayLabel}">
+                          <Label x:Name="todosTodayLabel" />
+                        </Frame>
+                </StackLayout>
+            </ContentView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

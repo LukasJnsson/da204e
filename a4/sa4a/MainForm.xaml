@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Lukas Jönsson
+21/9-2023
+-->
+
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Solution_Assignment_4_PartyOrganizer.MainForm"
+             BackgroundColor="#121212">
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <!-- Party Organizer -->
+
+            <ContentView>
+                <StackLayout>
+                    <Label x:Name="newPartyLabel" FontSize="20" HorizontalOptions="Center" />
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+			                    <ColumnDefinition Width="Auto" />
+			                    <ColumnDefinition Width="*" />
+		                    </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+			                    <RowDefinition Height="Auto" />
+			                    <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+		                    </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" x:Name="maxNumLabel"/>
+		                    <Entry Grid.Row="0" Grid.Column="1" Margin="10,0,0,10" x:Name="maxNumEntry"/>
+
+		                    <Label Grid.Row="1" x:Name="costLabel"/>
+		                    <Entry Grid.Row="1" Grid.Column="1" Margin="10,0,0,10" x:Name="costEntry"/>
+
+                            <Label Grid.Row="2" x:Name="feeLabel"/>
+		                    <Entry Grid.Row="2" Grid.Column="1" Margin="10,0,0,10" x:Name="feeEntry"/>
+	                    </Grid>
+                    <Button x:Name="createPartyBtn" HorizontalOptions="Center" Clicked="ButtonClickedCreateParty" />
+                </StackLayout>
+            </ContentView>
+
+            <ContentView>
+                    <StackLayout>
+                        <Label x:Name="inviteGuestLabel" FontSize="20" HorizontalOptions="Center" />
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+			                        <ColumnDefinition Width="Auto" />
+			                        <ColumnDefinition Width="*" />
+		                        </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+			                        <RowDefinition Height="Auto" />
+			                        <RowDefinition Height="Auto" />
+		                        </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0" x:Name="firstNameLabel"/>
+		                        <Entry Grid.Row="0" Grid.Column="1" Margin="10,0,0,10" x:Name="firstNameEntry"/>
+
+		                        <Label Grid.Row="1" x:Name="lastNameLabel"/>
+		                        <Entry Grid.Row="1" Grid.Column="1" Margin="10,0,0,10" x:Name="lastNameEntry"/>
+	                        </Grid>
+                        <Button x:Name="addGuestBtn" HorizontalOptions="Center" Clicked="ButtonClickedAddGuest" />
+                    </StackLayout>
+            </ContentView>
+
+            <ContentView>
+                <StackLayout>
+                    <Grid Margin="10" HorizontalOptions="Center">
+
+                        <Grid.ColumnDefinitions>
+			                <ColumnDefinition Width="Auto" />
+			                <ColumnDefinition Width="Auto" />
+		                </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+			                <RowDefinition Height="Auto" />
+			                <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+		                </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" x:Name="numOfGuestLabel"/>
+                        <Frame Grid.Row="0" Grid.Column="1" Margin="10,0,0,10">
+                          <Label x:Name="numOfGuestFrameLabel" />
+                        </Frame>
+
+		                <Label Grid.Row="1" x:Name="totalCostLabel"/>
+                        <Frame Grid.Row="1" Grid.Column="1" Margin="10,0,0,10">
+                          <Label x:Name="totalCostFrameLabel" />
+                        </Frame>
+
+		                <Label Grid.Row="2" x:Name="totalFeesLabel"/>
+                        <Frame Grid.Row="2" Grid.Column="1" Margin="10,0,0,10">
+                          <Label x:Name="totalFeesFrameLabel" />
+                        </Frame>
+
+		                <Label Grid.Row="3" x:Name="surplusDeficitLabel"/>
+                        <Frame Grid.Row="3" Grid.Column="1" Margin="10,0,0,10">
+                          <Label x:Name="surplusDeficitFrameLabel" />
+                        </Frame>
+	                </Grid>
+                </StackLayout>
+            </ContentView>
+
+            <ContentView>
+                <StackLayout>
+                <Label x:Name="guestListLabel" FontSize="20" HorizontalOptions="Center" />
+                <!-- The implementation of the 'ListView' is based on the following source
+                https://mauiman.dev/listview.html
+                -->
+                        <ListView x:Name="guestListView">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextCell Text="{Binding}" />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    <Button x:Name="deleteGuestBtn" HorizontalOptions="Center" Clicked="ButtonClickedDeleteGuest" />
+                </StackLayout>
+            </ContentView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

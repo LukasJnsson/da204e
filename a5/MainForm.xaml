@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Lukas Jönsson
+3/10-2023
+-->
+
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Solution_Assignment_5.MainForm"
+             BackgroundColor="#121212">
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <!-- Event Organizer -->
+
+            <ContentView>
+                <StackLayout>
+                    <Label x:Name="newEventLabel" FontSize="20" HorizontalOptions="Center" />
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+			                    <ColumnDefinition Width="Auto" />
+			                    <ColumnDefinition Width="*" />
+		                    </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+			                    <RowDefinition Height="Auto" />
+			                    <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+		                    </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" x:Name="eventTitleLabel"/>
+		                    <Entry Grid.Row="0" Grid.Column="1" Margin="10,0,0,10" x:Name="eventTitleEntry"/>
+
+		                    <Label Grid.Row="1" x:Name="eventCostLabel"/>
+		                    <Entry Grid.Row="1" Grid.Column="1" Margin="10,0,0,10" x:Name="eventCostEntry"/>
+
+                            <Label Grid.Row="2" x:Name="eventFeeLabel"/>
+		                    <Entry Grid.Row="2" Grid.Column="1" Margin="10,0,0,10" x:Name="eventFeeEntry"/>
+	                    </Grid>
+                    <Button x:Name="createEventBtn" HorizontalOptions="Center" Clicked="ButtonClickedCreateEvent"/>
+                </StackLayout>
+            </ContentView>
+
+            <ContentView>
+                    <StackLayout>
+                        <Label x:Name="addParticipantLabel" FontSize="20" HorizontalOptions="Center" />
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+			                        <ColumnDefinition Width="Auto" />
+			                        <ColumnDefinition Width="*" />
+		                        </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+			                        <RowDefinition Height="Auto" />
+			                        <RowDefinition Height="Auto" />
+			                        <RowDefinition Height="Auto" />
+			                        <RowDefinition Height="Auto" />
+			                        <RowDefinition Height="Auto" />
+			                        <RowDefinition Height="Auto" />
+		                        </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0" x:Name="firstNameLabel"/>
+		                        <Entry Grid.Row="0" Grid.Column="1" Margin="10,0,0,10" x:Name="firstNameEntry"/>
+
+		                        <Label Grid.Row="1" x:Name="lastNameLabel"/>
+		                        <Entry Grid.Row="1" Grid.Column="1" Margin="10,0,0,10" x:Name="lastNameEntry"/>
+
+		                        <Label Grid.Row="2" x:Name="streetLabel"/>
+		                        <Entry Grid.Row="2" Grid.Column="1" Margin="10,0,0,10" x:Name="streetEntry"/>
+
+		                        <Label Grid.Row="3" x:Name="cityLabel"/>
+		                        <Entry Grid.Row="3" Grid.Column="1" Margin="10,0,0,10" x:Name="cityEntry"/>
+
+		                        <Label Grid.Row="4" x:Name="zipCodeLabel"/>
+		                        <Entry Grid.Row="4" Grid.Column="1" Margin="10,0,0,10" x:Name="zipCodeEntry"/>
+
+		                        <Label Grid.Row="5" x:Name="countryLabel"/>
+                                <!-- https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/picker -->
+                                <Picker Grid.Row="5" Grid.Column="1" x:Name="countryPicker">
+                                  <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                    </x:Array>
+                                  </Picker.ItemsSource>
+                                </Picker>
+	                        </Grid>
+                        <Button x:Name="addParticipantBtn" HorizontalOptions="Center" Clicked="ButtonClickedAddParticipant" />
+                    </StackLayout>
+            </ContentView>
+
+            <ContentView>
+                <StackLayout>
+                <Label x:Name="participantListViewLabel" FontSize="20" HorizontalOptions="Center" />
+                    <ListView x:Name="participantListView" ItemSelected="ListViewClickedSelectedParticipant">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextCell Text="{Binding}" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <!-- Implemented Grid with two columns on the same row to align the buttons -->
+                    <Grid Margin="10" HorizontalOptions="Center">
+
+                        <Grid.ColumnDefinitions>
+			                <ColumnDefinition Width="Auto" />
+			                <ColumnDefinition Width="Auto" />
+		                </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+			                <RowDefinition Height="Auto" />
+		                </Grid.RowDefinitions>
+
+                        <Button Grid.Row="0" Grid.Column="0" x:Name="changeParticipantBtn" HorizontalOptions="Center" Clicked="ButtonClickedUpdateParticipant"/>
+                        <Button Grid.Row="0" Grid.Column="1" x:Name="deleteParticipantBtn" HorizontalOptions="Center" Clicked="ButtonClickedDeleteParticipant"/>
+	                </Grid>
+                </StackLayout>
+            </ContentView>
+
+            <ContentView>
+                <StackLayout>
+                    <Label x:Name="eventEconomyLabel" FontSize="20" HorizontalOptions="Center" />
+                    <Grid Margin="10" HorizontalOptions="Center">
+
+                        <Grid.ColumnDefinitions>
+			                <ColumnDefinition Width="Auto" />
+			                <ColumnDefinition Width="Auto" />
+		                </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+			                <RowDefinition Height="Auto" />
+			                <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+		                </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" x:Name="numberOfParticipantsLabel"/>
+                        <Frame Grid.Row="0" Grid.Column="1" Margin="10,0,0,10">
+                          <Label x:Name="numberOfParticipantsFrameLabel" />
+                        </Frame>
+
+		                <Label Grid.Row="1" x:Name="totalCostLabel"/>
+                        <Frame Grid.Row="1" Grid.Column="1" Margin="10,0,0,10">
+                          <Label x:Name="totalCostFrameLabel" />
+                        </Frame>
+
+		                <Label Grid.Row="2" x:Name="totalFeeLabel"/>
+                        <Frame Grid.Row="2" Grid.Column="1" Margin="10,0,0,10">
+                          <Label x:Name="totalFeeFrameLabel" />
+                        </Frame>
+
+		                <Label Grid.Row="3" x:Name="surplusDeficitLabel"/>
+                        <Frame Grid.Row="3" Grid.Column="1" Margin="10,0,0,10">
+                          <Label x:Name="surplusDeficitFrameLabel" />
+                        </Frame>
+	                </Grid>
+                </StackLayout>
+            </ContentView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
